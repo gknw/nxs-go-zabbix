@@ -92,6 +92,13 @@ func (z *Context) Login(host, user, password string) error {
 	return nil
 }
 
+// Auth gets the Zabbix session with existing token
+func (z *Context) Auth(host, token string) {
+
+	z.host = host
+	z.sessionKey = token
+}
+
 // Logout destroys the Zabbix session
 func (z *Context) Logout() error {
 
