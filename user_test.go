@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	testUserAlias         = "testUserAlias"
+	testUserUsername      = "testUserUsername"
 	testUserName          = "testUserName"
 	testUserSurname       = "testUserSurname"
 	testUserPasswd        = "testUserPasswd"
@@ -25,18 +25,21 @@ func TestUserCRUD(t *testing.T) {
 	defer logoutTest(&z, t)
 
 	// Preparing auxiliary data
+	roleIDs := testRoleCreate(t, z)
+	defer testRoleDelete(t, z, roleIDs)
+
 	ugCreatedIDs := testUsergroupCreate(t, z)
 	defer testUsergroupDelete(t, z, ugCreatedIDs)
 
 	// Create and delete
-	uCreatedIDs := testUserCreate(t, z, ugCreatedIDs)
+	uCreatedIDs := testUserCreate(t, z, ugCreatedIDs, roleIDs[0])
 	defer testUserDelete(t, z, uCreatedIDs)
 
 	// Get
 	testUserGet(t, z, uCreatedIDs)
 }
 
-func testUserCreate(t *testing.T, z Context, ugCreatedIDs []int) []int {
+func testUserCreate(t *testing.T, z Context, ugCreatedIDs []int, roleID int) []int {
 
 	var usergroups []UsergroupObject
 
@@ -49,16 +52,16 @@ func testUserCreate(t *testing.T, z Context, ugCreatedIDs []int) []int {
 
 	uCreatedIDs, _, err := z.UserCreate([]UserObject{
 		{
-			Alias:      testUserAlias,
+			Username:   testUserUsername,
 			Name:       testUserName,
 			Surname:    testUserSurname,
 			Passwd:     testUserPasswd,
 			AutoLogin:  UserAutoLoginDisabled,
 			AutoLogout: "15m",
 			Lang:       testUserLang,
-			Type:       UserTypeUser,
 			Refresh:    "90s",
 			Usrgrps:    usergroups,
+			RoleID:     roleID,
 			UserMedias: []MediaObject{
 				{
 					MediaTypeID: 1,
@@ -112,9 +115,9 @@ func testUserGet(t *testing.T, z Context, uCreatedIDs []int) []UserObject {
 		SelectUsrgrps:    SelectExtendedOutput,
 		GetParameters: GetParameters{
 			Filter: map[string]interface{}{
-				"alias":   testUserAlias,
-				"name":    testUserName,
-				"surname": testUserSurname,
+				"username": testUserUsername,
+				"name":     testUserName,
+				"surname":  testUserSurname,
 			},
 			Output: SelectExtendedOutput,
 		},
