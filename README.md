@@ -88,3 +88,23 @@ Run:
 ```
 ZABBIX_HOST="https://zabbix.yourdomain.com/api_jsonrpc.php" ZABBIX_USERNAME="Admin" ZABBIX_PASSWORD="PASSWORD" go run main.go
 ```
+
+## Testing
+
+Read prepared docker-compose file:
+
+```
+cat docker/development.yaml
+```
+
+Start Zabbix docker containers:
+
+```
+docker-compose -f docker/development.yaml up -d
+```
+
+Run test:
+
+```
+ZABBIX_HOST=http://127.0.0.1:8080/api_jsonrpc.php ZABBIX_USERNAME=Admin ZABBIX_PASSWORD=zabbix go test -v
+```

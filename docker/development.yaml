@@ -1,0 +1,43 @@
+#
+# Services for local package tests
+#
+
+version: '3.5'
+
+services:
+  mysql:
+    image: mariadb:10.6-focal
+    command: --bind-address=127.0.0.1 --default-authentication-plugin=mysql_native_password
+    hostname: mysql-server
+    domainname: lo
+    container_name: mysql_server
+    network_mode: "host"
+    environment:
+      - MARIADB_ROOT_PASSWORD=1Passw0rD
+
+  zabbix:
+    image: zabbix/zabbix-server-mysql:5.4.4-alpine
+    hostname: zabbix-server
+    domainname: lo
+    container_name: zabbix_server
+    network_mode: "host"
+    environment:
+      - DB_SERVER_HOST=127.0.0.1
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=1Passw0rD
+    extra_hosts:
+      - "localhost:127.0.0.1"
+
+  frontend:
+    image: zabbix/zabbix-web-nginx-mysql:5.4.0-alpine
+    hostname: zabbix-frontend
+    domainname: lo
+    container_name: zabbix_frontend
+    network_mode: "host"
+    environment:
+      - ZBX_SERVER_HOST=127.0.0.1
+      - ZBX_SERVER_PORT=10051
+      - ZBX_SERVER_NAME=Zabbix
+      - DB_SERVER_HOST=127.0.0.1
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=1Passw0rD
