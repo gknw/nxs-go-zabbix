@@ -1,12 +1,5 @@
 package zabbix
 
-// For `HostObject` field: `Available`
-const (
-	HostAvailableUnknown     = 0
-	HostAvailableAvailable   = 1
-	HostAvailableUnavailable = 2
-)
-
 // For `HostObject` field: `Flags`
 const (
 	HostFlagsPlain      = 0
@@ -31,13 +24,6 @@ const (
 	HostIpmiAuthtypeRMCP     = 6
 )
 
-// For `HostObject` field: `IpmiAvailable`
-const (
-	HostIpmiAvailableUnknown     = 0
-	HostIpmiAvailableAvailable   = 1
-	HostIpmiAvailableUnavailable = 2
-)
-
 // For `HostObject` field: `IpmiPrivilege`
 const (
 	HostIpmiPrivilegeCallback = 1
@@ -45,13 +31,6 @@ const (
 	HostIpmiPrivilegeOperator = 3
 	HostIpmiPrivilegeAdmin    = 4
 	HostIpmiPrivilegeOEM      = 5
-)
-
-// For `HostObject` field: `JmxAvailable`
-const (
-	HostJmxAvailableUnknown     = 0
-	HostJmxAvailableAvailable   = 1
-	HostJmxAvailableUnavailable = 2
 )
 
 // For `HostObject` field: `MaintenanceStatus`
@@ -64,13 +43,6 @@ const (
 const (
 	HostMaintenanceTypeDataCollectionEnabled  = 0
 	HostMaintenanceTypeDataCollectionDisabled = 1
-)
-
-// For `HostObject` field: `SnmpAvailable`
-const (
-	HostSnmpAvailableUnknown     = 0
-	HostSnmpAvailableAvailable   = 1
-	HostSnmpAvailableUnavailable = 2
 )
 
 // For `HostObject` field: `Status`
@@ -105,41 +77,28 @@ const (
 	HostTagOperatorEquals   = 1
 )
 
+type InventoryObject struct {
+}
+
 // HostObject struct is used to store host operations results
 //
-// see: https://www.zabbix.com/documentation/5.0/manual/api/reference/host/object#host
+// see: https://www.zabbix.com/documentation/5.4/manual/api/reference/host/object#host
 type HostObject struct {
 	HostID            int    `json:"hostid,omitempty"`
 	Host              string `json:"host,omitempty"`
-	Available         int    `json:"available,omitempty"` // has defined consts, see above
 	Description       string `json:"description,omitempty"`
-	DisableUntil      int    `json:"disable_until,omitempty"`
-	Error             string `json:"error,omitempty"`
-	ErrorsFrom        int    `json:"errors_from,omitempty"`
 	Flags             int    `json:"flags,omitempty"`          // has defined consts, see above
 	InventoryMode     int    `json:"inventory_mode,omitempty"` // has defined consts, see above
 	IpmiAuthtype      int    `json:"ipmi_authtype,omitempty"`  // has defined consts, see above
-	IpmiAvailable     int    `json:"ipmi_available,omitempty"` // has defined consts, see above
-	IpmiDisableUntil  int    `json:"ipmi_disable_until,omitempty"`
-	IpmiError         string `json:"ipmi_error,omitempty"`
-	IpmiErrorsFrom    int    `json:"ipmi_errors_from,omitempty"`
 	IpmiPassword      string `json:"ipmi_password,omitempty"`
 	IpmiPrivilege     int    `json:"ipmi_privilege,omitempty"` // has defined consts, see above
 	IpmiUsername      string `json:"ipmi_username,omitempty"`
-	JmxAvailable      int    `json:"jmx_available,omitempty"` // has defined consts, see above
-	JmxDisableUntil   int    `json:"jmx_disable_until,omitempty"`
-	JmxError          string `json:"jmx_error,omitempty"`
-	JmxErrorsFrom     int    `json:"jmx_errors_from,omitempty"`
 	MaintenanceFrom   int    `json:"maintenance_from,omitempty"`
 	MaintenanceStatus int    `json:"maintenance_status,omitempty"` // has defined consts, see above
 	MaintenanceType   int    `json:"maintenance_type,omitempty"`   // has defined consts, see above
 	MaintenanceID     int    `json:"maintenanceid,omitempty"`
 	Name              string `json:"name,omitempty"`
 	ProxyHostID       int    `json:"proxy_hostid,omitempty"`
-	SnmpAvailable     int    `json:"snmp_available,omitempty"` // has defined consts, see above
-	SnmpDisableUntil  int    `json:"snmp_disable_until,omitempty"`
-	SnmpError         string `json:"snmp_error,omitempty"`
-	SnmpErrorsFrom    int    `json:"snmp_errors_from,omitempty"`
 	Status            int    `json:"status,omitempty"`      // has defined consts, see above
 	TLSConnect        int    `json:"tls_connect,omitempty"` // has defined consts, see above
 	TLSAccept         int    `json:"tls_accept,omitempty"`  // has defined consts, see above
@@ -151,7 +110,7 @@ type HostObject struct {
 	Groups          []HostgroupObject     `json:"groups,omitempty"`
 	Interfaces      []HostinterfaceObject `json:"interfaces,omitempty"`
 	Tags            []HostTagObject       `json:"tags,omitempty"`
-	InheritedTags   []HostTagObject       `json:"inheritedTags,omitempty"`
+	Invetory        []InventoryObject     `json:"inventory,omitempty"`
 	Macros          []UsermacroObject     `json:"macros,omitempty"`
 	Templates       []TemplateObject      `json:"templates,omitempty"`       // Used for `create` operations
 	ParentTemplates []TemplateObject      `json:"parentTemplates,omitempty"` // Used to store result for `get` operations
