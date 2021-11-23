@@ -183,7 +183,7 @@ type HostObject struct {
 	Groups          []HostgroupObject     `json:"groups,omitempty"`
 	Interfaces      []HostinterfaceObject `json:"interfaces,omitempty"`
 	Tags            []HostTagObject       `json:"tags,omitempty"`
-	Invetory        InventoryObject       `json:"inventory,omitempty"`
+	Inventory       InventoryObject       `json:"inventory,omitempty"`
 	Macros          []UsermacroObject     `json:"macros,omitempty"`
 	Templates       []TemplateObject      `json:"templates,omitempty"`       // Used for `create` operations
 	ParentTemplates []TemplateObject      `json:"parentTemplates,omitempty"` // Used to store result for `get` operations
@@ -247,7 +247,7 @@ type HostGetParams struct {
 	// SelectHostDiscovery   SelectQuery `json:"selectHostDiscovery ,omitempty"` // not implemented yet
 	// SelectHTTPTests       SelectQuery `json:"selectHttpTests,omitempty"` // not implemented yet
 	SelectInterfaces SelectQuery `json:"selectInterfaces,omitempty"`
-	// SelectInventory       SelectQuery `json:"selectInventory,omitempty"` // not implemented yet
+	SelectInventory  SelectQuery `json:"selectInventory,omitempty"`
 	// SelectItems           SelectQuery `json:"selectItems,omitempty"` // not implemented yet
 	SelectMacros          SelectQuery `json:"selectMacros,omitempty"`
 	SelectParentTemplates SelectQuery `json:"selectParentTemplates,omitempty"`
