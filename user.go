@@ -110,6 +110,11 @@ type userDeleteResult struct {
 	UserIDs []int `json:"userids"`
 }
 
+// Structure to store updating result
+type userUpdateResult struct {
+	UserIDs []int `json:"userids"`
+}
+
 // UserGet gets users
 func (z *Context) UserGet(params UserGetParams) ([]UserObject, int, error) {
 
@@ -142,6 +147,19 @@ func (z *Context) UserDelete(userIDs []int) ([]int, int, error) {
 	var result userDeleteResult
 
 	status, err := z.request("user.delete", userIDs, &result)
+	if err != nil {
+		return nil, status, err
+	}
+
+	return result.UserIDs, status, nil
+}
+
+// UserUpdate updates users
+func (z *Context) UserUpdate(params UserObject) ([]int, int, error) {
+
+	var result userUpdateResult
+
+	status, err := z.request("user.update", params, &result)
 	if err != nil {
 		return nil, status, err
 	}
