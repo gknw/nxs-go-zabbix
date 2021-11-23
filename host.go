@@ -6,7 +6,7 @@ const (
 	HostFlagsDiscovered = 4
 )
 
-// For `HostObject` field: `Flags`
+// For `HostObject` field: `InventoryMode`
 const (
 	HostInventoryModeDisabled  = -1
 	HostInventoryModeManual    = 0
@@ -77,7 +77,80 @@ const (
 	HostTagOperatorEquals   = 1
 )
 
+// InventoryObject struct is used to store host operations results
+//
+// see: https://www.zabbix.com/documentation/5.4/manual/api/reference/host/object#host_inventory
 type InventoryObject struct {
+	Type             string `json:"type,omitempty"`
+	TypeFull         string `json:"type_full,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Alias            string `json:"alias,omitempty"`
+	OS               string `json:"os,omitempty"`
+	OSFull           string `json:"os_full,omitempty"`
+	OSShort          string `json:"os_short,omitempty"`
+	SerialNumberA    string `json:"serialno_a,omitempty"`
+	SerialNumberB    string `json:"serialno_b,omitempty"`
+	Tag              string `json:"tag,omitempty"`
+	AssetTag         string `json:"asset_tag,omitempty"`
+	MACAddressA      string `json:"macaddress_a,omitempty"`
+	MACAddressB      string `json:"macaddress_b,omitempty"`
+	Hardware         string `json:"hardware,omitempty"`
+	HardwareFull     string `json:"hardware_full,omitempty"`
+	Software         string `json:"software,omitempty"`
+	SoftwareFull     string `json:"software_full,omitempty"`
+	SoftwareAppA     string `json:"software_app_a,omitempty"`
+	SoftwareAppB     string `json:"software_app_b,omitempty"`
+	SoftwareAppC     string `json:"software_app_c,omitempty"`
+	SoftwareAppD     string `json:"software_app_d,omitempty"`
+	SoftwareAppE     string `json:"software_app_e,omitempty"`
+	Contact          string `json:"contact,omitempty"`
+	Location         string `json:"location,omitempty"`
+	LocationLat      string `json:"location_lat,omitempty"`
+	LocationLon      string `json:"location_lon,omitempty"`
+	Notes            string `json:"notes,omitempty"`
+	Chassis          string `json:"chassis,omitempty"`
+	Model            string `json:"model,omitempty"`
+	HWArch           string `json:"hw_arch,omitempty"`
+	Vendor           string `json:"vendor,omitempty"`
+	ContactNumber    string `json:"contact_number,omitempty"`
+	InstallerName    string `json:"installer_name,omitempty"`
+	DeploymentStatus string `json:"deployment_status,omitempty"`
+	UrlA             string `json:"url_a,omitempty"`
+	UrlB             string `json:"url_b,omitempty"`
+	UrlC             string `json:"url_c,omitempty"`
+	HostNetworks     string `json:"host_networks,omitempty"`
+	HostNetmask      string `json:"host_netmask,omitempty"`
+	HostRouter       string `json:"host_router,omitempty"`
+	OOBAddress       string `json:"oob_ip,omitempty"`
+	OOBNetmask       string `json:"oob_netmask,omitempty"`
+	OOBRouter        string `json:"oob_router,omitempty"`
+	DateHWPurchase   string `json:"date_hw_purchase,omitempty"`
+	DateHWInstall    string `json:"date_hw_install,omitempty"`
+	DateHWExpiry     string `json:"date_hw_expiry,omitempty"`
+	DateHWDecomm     string `json:"date_hw_decomm,omitempty"`
+	SiteAddressA     string `json:"site_address_a,omitempty"`
+	SiteAddressB     string `json:"site_address_b,omitempty"`
+	SiteAddressC     string `json:"site_address_c,omitempty"`
+	SiteCity         string `json:"site_city,omitempty"`
+	SiteState        string `json:"site_state,omitempty"`
+	SiteCountry      string `json:"site_country,omitempty"`
+	SiteZip          string `json:"site_zip,omitempty"`
+	SiteRack         string `json:"site_rack,omitempty"`
+	SiteNotes        string `json:"site_notes,omitempty"`
+	POC1Name         string `json:"poc_1_name,omitempty"`
+	POC1Email        string `json:"poc_1_email,omitempty"`
+	POC1PhoneA       string `json:"poc_1_phone_a,omitempty"`
+	POC1PhoneB       string `json:"poc_1_phone_b,omitempty"`
+	POC1Cell         string `json:"poc_1_cell,omitempty"`
+	POC1Screen       string `json:"poc_1_screen,omitempty"`
+	POC1Notes        string `json:"poc_1_notes,omitempty"`
+	POC2Name         string `json:"poc_2_name,omitempty"`
+	POC2Email        string `json:"poc_2_email,omitempty"`
+	POC2PhoneA       string `json:"poc_2_phone_a,omitempty"`
+	POC2PhoneB       string `json:"poc_2_phone_b,omitempty"`
+	POC2Cell         string `json:"poc_2_cell,omitempty"`
+	POC2Screen       string `json:"poc_2_screen,omitempty"`
+	POC2Notes        string `json:"poc_2_notes,omitempty"`
 }
 
 // HostObject struct is used to store host operations results
@@ -110,7 +183,7 @@ type HostObject struct {
 	Groups          []HostgroupObject     `json:"groups,omitempty"`
 	Interfaces      []HostinterfaceObject `json:"interfaces,omitempty"`
 	Tags            []HostTagObject       `json:"tags,omitempty"`
-	Invetory        []InventoryObject     `json:"inventory,omitempty"`
+	Invetory        InventoryObject       `json:"inventory,omitempty"`
 	Macros          []UsermacroObject     `json:"macros,omitempty"`
 	Templates       []TemplateObject      `json:"templates,omitempty"`       // Used for `create` operations
 	ParentTemplates []TemplateObject      `json:"parentTemplates,omitempty"` // Used to store result for `get` operations
