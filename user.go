@@ -167,6 +167,11 @@ func (z *Context) UserUpdate(params UserObject) ([]int, int, error) {
 	return result.UserIDs, status, nil
 }
 
+// UserLogin logins users
+func (z *Context) UserLogin(params UserLoginParams) (string, int, error) {
+    return z.userLogin(params)
+}
+
 func (z *Context) userLogin(params UserLoginParams) (string, int, error) {
 
 	var result string
