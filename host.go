@@ -186,6 +186,7 @@ type HostObject struct {
 	Inventory       InventoryObject       `json:"inventory,omitempty"`
 	Macros          []UsermacroObject     `json:"macros,omitempty"`
 	Templates       []TemplateObject      `json:"templates,omitempty"`       // Used for `create` operations
+	TemplatesClear  []TemplateObject      `json:"templates_clear,omitempty"` // Used for `update` operations
 	ParentTemplates []TemplateObject      `json:"parentTemplates,omitempty"` // Used to store result for `get` operations
 }
 
